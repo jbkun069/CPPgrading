@@ -8,3 +8,13 @@ Marks: 89 81 83
 Average: 84.3333
 Grade: B
 
+Student: ohn Doe
+Marks: 67 75 89 
+Average: 77
+Grade: C
+
+Student: Alice Smith
+Marks: 77 80 91 
+Average: 82.6667
+Grade: B
+
