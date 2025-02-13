@@ -1,20 +1,7 @@
-Student: ohn Doe
-Marks: 66 77 99 
-Average: 80.6667
-Grade: B
 
-Student: Alice Smith
-Marks: 89 81 83 
-Average: 84.3333
-Grade: B
 
-Student: ohn Doe
-Marks: 67 75 89 
-Average: 77
-Grade: C
-
-Student: Alice Smith
-Marks: 77 80 91 
-Average: 82.6667
-Grade: B
+Student: John Doe
+Marks: 55 66 88 
+Average: 69.6667
+Grade: D
 
