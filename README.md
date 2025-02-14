@@ -1,21 +1,39 @@
-# Student Grade Calculator
+# Student Grade Management System
 
-A simple C++ program to calculate and save student grades. It allows users to input student names, marks for multiple subjects, and calculates the average and grade. The results are saved to a file (`grades.txt`).
-
----
+This C++ program is designed to manage student grades, providing functionalities to add students, view records, calculate statistics, sort, and filter data. It is a simple yet efficient tool for academic record-keeping.
 
 ## Features
-- Input student name and marks for multiple subjects.
-- Calculate average and assign a grade (A, B, C, D, F).
-- Save results to a file (`grades.txt`).
-- View previously saved grades.
-- Interactive menu for ease of use.
 
----
+- **Add Student**: Input student details including name, number of subjects, and marks.
+- **View All Records**: Display all student records stored in the system.
+- **Calculate Statistics**: Compute and display summary statistics such as class average, highest and lowest marks, and grade distribution.
+- **Sort Records**: Sort and display student records by name or average.
+- **Filter Records**: Filter and display records by grade or performance (above or below a certain average).
 
-## Prerequisites
-- **C++ Compiler**: Ensure you have a C++ compiler installed (e.g., `g++`).
-- **VS Code**: Install [Visual Studio Code](https://code.visualstudio.com/).
+## Usage
 
----
+1. **Compile the Program**:
+    ```bash
+    g++ -o student_grade_manager main.cpp
+    ```
+2. **Run the Program**:
+    ```bash
+    ./student_grade_manager
+    ```
+3. **Interact with the Menu**: Follow the on-screen menu to add students, view records, calculate statistics, sort, and filter data.
 
+## File Structure
+
+- `grades.txt`: Stores student records in a plain text format. Each student's data includes their name, marks, average, and grade.
+
+## Dependencies
+
+- **C++ Standard Library**: The program uses standard C++ libraries for input/output operations, file handling, and data structures.
+
+## Contributing
+
+Feel free to fork this repository and submit pull requests with improvements or additional features.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
