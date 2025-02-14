@@ -1,7 +1,12 @@
 
 
-Student: John Doe
-Marks: 55 66 88 
-Average: 69.6667
-Grade: D
+Student: John
+Marks: 44 55 66 
+Average: 55
+Grade: F
+
+Student: Smith
+Marks: 78 60 81 
+Average: 73
+Grade: C
 
