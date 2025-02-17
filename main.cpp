@@ -21,18 +21,29 @@ float calculateAverage(const vector<float>& marks) {
 
 // Determine grade based on average
 char calculateGrade(float average) {
-    if (average >= 90) return 'A';
-    else if (average >= 80) return 'B';
-    else if (average >= 70) return 'C';
-    else if (average >= 60) return 'D';
+    const float A_THRESHOLD = 90.0f;
+    const float B_THRESHOLD = 80.0f;
+    const float C_THRESHOLD = 70.0f;
+    const float D_THRESHOLD = 60.0f;
+
+    if (average >= A_THRESHOLD) return 'A';
+    else if (average >= B_THRESHOLD) return 'B';
+    else if (average >= C_THRESHOLD) return 'C';
+    else if (average >= D_THRESHOLD) return 'D';
     else return 'F';
 }
 
 // Function to Save Data to File
+const string GRADES_FILE = "grades.txt";
+
 void saveToFile(const string& name, const vector<float>& marks, float average, char grade) {
-    ofstream outFile("grades.txt", ios::app); // Append mode
+    ofstream outFile(GRADES_FILE, ios::app); // Append mode
     if (!outFile) {
-        cerr << "Error opening file!" << endl;
+        cerr << "Error opening file " << GRADES_FILE << "!" << endl;
+        return;
+    }
+    if (marks.empty()) {
+        cerr << "No marks to save!" << endl;
         return;
     }
     outFile << "Student: " << name << endl;
@@ -93,10 +104,12 @@ void calculateStatistics() {
 
     // Calculate class average
     float classAverage = 0;
-    for (float avg : averages) {
-        classAverage += avg;
+    if (!averages.empty()) {
+        for (float avg : averages) {
+            classAverage += avg;
+        }
+        classAverage /= averages.size();
     }
-    classAverage /= averages.size();
 
     // Display statistics
     cout << "\n----- Summary Statistics -----" << endl;
@@ -153,7 +166,9 @@ vector<tuple<string, vector<float>, float, char>> loadRecords() {
 // Function to Sort and Display Records by Name
 void sortAndDisplayByName() {
     auto records = loadRecords();
-    sort(records.begin(), records.end());
+    sort(records.begin(), records.end(), [](const auto& a, const auto& b) {
+        return get<0>(a) < get<0>(b); // Sort by name (first element of tuple)
+    });
 
     cout << "\n----- Students Sorted by Name -----" << endl;
     for (const auto& record : records) {
