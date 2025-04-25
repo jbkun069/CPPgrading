@@ -10,3 +10,8 @@ Marks: 78 60 81
 Average: 73
 Grade: C
 
+Student: Jibtesh Kalita
+Marks: 90 82 87 91 94 
+Average: 88.8
+Grade: B
+

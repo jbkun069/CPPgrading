@@ -226,6 +226,50 @@ void filterAndDisplayByPerformance(float threshold, bool above) {
     }
 }
 
+// Function to Delete Student Record by Name
+bool deleteRecord(const string& name) {
+    // Load all records
+    auto records = loadRecords();
+    bool found = false;
+    
+    // Find and remove the record with the matching name
+    for (auto it = records.begin(); it != records.end(); ) {
+        if (get<0>(*it) == name) {
+            it = records.erase(it);
+            found = true;
+        } else {
+            ++it;
+        }
+    }
+    
+    if (!found) {
+        return false;
+    }
+    
+    // Rewrite the file with the remaining records
+    ofstream outFile(GRADES_FILE, ios::trunc); // Truncate the file
+    if (!outFile) {
+        cerr << "Error opening file for writing!" << endl;
+        return false;
+    }
+    
+    for (const auto& record : records) {
+        const string& studentName = get<0>(record);
+        const vector<float>& marks = get<1>(record);
+        float average = get<2>(record);
+        char grade = get<3>(record);
+        
+        outFile << "Student: " << studentName << endl;
+        outFile << "Marks: ";
+        for (float m : marks) outFile << m << " ";
+        outFile << "\nAverage: " << average << endl;
+        outFile << "Grade: " << grade << "\n\n";
+    }
+    
+    outFile.close();
+    return true;
+}
+
 // Main Program
 int main() {
     int choice;
@@ -234,12 +278,13 @@ int main() {
         cout << "1. Add Student" << endl;
         cout << "2. View All Records" << endl;
         cout << "3. Search Student" << endl;
-        cout << "4. Calculate Statistics" << endl;
-        cout << "5. Sort by Name" << endl;
-        cout << "6. Sort by Average" << endl;
-        cout << "7. Filter by Grade" << endl;
-        cout << "8. Filter by Performance" << endl;
-        cout << "9. Exit" << endl;
+        cout << "4. Delete Student" << endl;  // New option
+        cout << "5. Calculate Statistics" << endl;  // Shifted from 4
+        cout << "6. Sort by Name" << endl;  // Shifted from 5
+        cout << "7. Sort by Average" << endl;  // Shifted from 6
+        cout << "8. Filter by Grade" << endl;  // Shifted from 7
+        cout << "9. Filter by Performance" << endl;  // Shifted from 8
+        cout << "10. Exit" << endl;  // Shifted from 9
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -295,17 +340,28 @@ int main() {
             getline(cin, searchName);
             // Implement search logic here...
         } else if (choice == 4) {
-            calculateStatistics();
+            string deleteName;
+            cout << "Enter student name to delete: ";
+            cin.ignore(); // Clear input buffer
+            getline(cin, deleteName);
+            
+            if (deleteRecord(deleteName)) {
+                cout << "Student record deleted successfully!" << endl;
+            } else {
+                cout << "Student not found or error deleting record." << endl;
+            }
         } else if (choice == 5) {
-            sortAndDisplayByName();
+            calculateStatistics();
         } else if (choice == 6) {
-            sortAndDisplayByAverage();
+            sortAndDisplayByName();
         } else if (choice == 7) {
+            sortAndDisplayByAverage();
+        } else if (choice == 8) {
             char grade;
             cout << "Enter grade to filter by (A/B/C/D/F): ";
             cin >> grade;
             filterAndDisplayByGrade(grade);
-        } else if (choice == 8) {
+        } else if (choice == 9) {
             float threshold;
             bool above;
             cout << "Enter average threshold: ";
@@ -315,11 +371,14 @@ int main() {
             cin >> option;
             above = (option == 1);
             filterAndDisplayByPerformance(threshold, above);
-        } else if (choice != 9) {
+        } else if (choice != 10) {
             cout << "Invalid choice! Please try again." << endl;
         }
-    } while (choice != 9);
+    } while (choice != 10);
 
     cout << "Exiting..." << endl;
     return 0;
 }
+
+
+
