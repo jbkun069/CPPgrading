@@ -164,6 +164,18 @@ vector<tuple<string, vector<float>, float, char>> loadRecords() {
 }
 
 // Function to Sort and Display Records by Name
+// Helper function to display a single student record
+void displayStudentRecord(const tuple<string, vector<float>, float, char>& record) {
+    cout << "Student: " << get<0>(record) << endl;
+    cout << "Marks: ";
+    for (float mark : get<1>(record)) {
+        cout << mark << " ";
+    }
+    cout << "\nAverage: " << get<2>(record) << endl;
+    cout << "Grade: " << get<3>(record) << "\n\n";
+}
+
+// Function to Sort and Display Records by Name
 void sortAndDisplayByName() {
     auto records = loadRecords();
     sort(records.begin(), records.end(), [](const auto& a, const auto& b) {
@@ -172,13 +184,7 @@ void sortAndDisplayByName() {
 
     cout << "\n----- Students Sorted by Name -----" << endl;
     for (const auto& record : records) {
-        cout << "Student: " << get<0>(record) << endl;
-        cout << "Marks: ";
-        for (float mark : get<1>(record)) {
-            cout << mark << " ";
-        }
-        cout << "\nAverage: " << get<2>(record) << endl;
-        cout << "Grade: " << get<3>(record) << "\n\n";
+        displayStudentRecord(record);
     }
 }
 
@@ -191,13 +197,7 @@ void sortAndDisplayByAverage() {
 
     cout << "\n----- Students Sorted by Average -----" << endl;
     for (const auto& record : records) {
-        cout << "Student: " << get<0>(record) << endl;
-        cout << "Marks: ";
-        for (float mark : get<1>(record)) {
-            cout << mark << " ";
-        }
-        cout << "\nAverage: " << get<2>(record) << endl;
-        cout << "Grade: " << get<3>(record) << "\n\n";
+        displayStudentRecord(record);
     }
 }
 
@@ -208,13 +208,7 @@ void filterAndDisplayByGrade(char grade) {
     cout << "\n----- Students with Grade " << grade << " -----" << endl;
     for (const auto& record : records) {
         if (get<3>(record) == grade) {
-            cout << "Student: " << get<0>(record) << endl;
-            cout << "Marks: ";
-            for (float mark : get<1>(record)) {
-                cout << mark << " ";
-            }
-            cout << "\nAverage: " << get<2>(record) << endl;
-            cout << "Grade: " << get<3>(record) << "\n\n";
+            displayStudentRecord(record);
         }
     }
 }
@@ -227,13 +221,7 @@ void filterAndDisplayByPerformance(float threshold, bool above) {
     cout << "\n----- Students " << comparison << " Average " << threshold << " -----" << endl;
     for (const auto& record : records) {
         if ((above && get<2>(record) > threshold) || (!above && get<2>(record) < threshold)) {
-            cout << "Student: " << get<0>(record) << endl;
-            cout << "Marks: ";
-            for (float mark : get<1>(record)) {
-                cout << mark << " ";
-            }
-            cout << "\nAverage: " << get<2>(record) << endl;
-            cout << "Grade: " << get<3>(record) << "\n\n";
+            displayStudentRecord(record);
         }
     }
 }
