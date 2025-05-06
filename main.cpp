@@ -178,6 +178,10 @@ void displayStudentRecord(const tuple<string, vector<float>, float, char>& recor
 // Function to Sort and Display Records by Name
 void sortAndDisplayByName() {
     auto records = loadRecords();
+    if (records.empty()) {
+        cout << "\nNo student records found!\n";
+        return;
+    }
     sort(records.begin(), records.end(), [](const auto& a, const auto& b) {
         return get<0>(a) < get<0>(b); // Sort by name (first element of tuple)
     });
@@ -191,6 +195,10 @@ void sortAndDisplayByName() {
 // Function to Sort and Display Records by Average
 void sortAndDisplayByAverage() {
     auto records = loadRecords();
+    if (records.empty()) {
+        cout << "\nNo student records found!\n";
+        return;
+    }
     sort(records.begin(), records.end(), [](const auto& a, const auto& b) {
         return get<2>(a) > get<2>(b); // Sort by average in descending order
     });
@@ -203,8 +211,16 @@ void sortAndDisplayByAverage() {
 
 // Function to Filter and Display Records by Grade
 void filterAndDisplayByGrade(char grade) {
-    auto records = loadRecords();
+    // Convert input to uppercase
+    grade = toupper(grade);
+    
+    // Validate grade input
+    if (grade != 'A' && grade != 'B' && grade != 'C' && grade != 'D' && grade != 'F') {
+        cout << "Invalid grade entered! Please use A, B, C, D, or F." << endl;
+        return;
+    }
 
+    auto records = loadRecords();
     cout << "\n----- Students with Grade " << grade << " -----" << endl;
     for (const auto& record : records) {
         if (get<3>(record) == grade) {
@@ -216,6 +232,10 @@ void filterAndDisplayByGrade(char grade) {
 // Function to Filter and Display Records by Performance
 void filterAndDisplayByPerformance(float threshold, bool above) {
     auto records = loadRecords();
+    if (records.empty()) {
+        cout << "\nNo student records found!\n";
+        return;
+    }
     string comparison = above ? "Above" : "Below";
 
     cout << "\n----- Students " << comparison << " Average " << threshold << " -----" << endl;
@@ -286,7 +306,11 @@ int main() {
         cout << "9. Filter by Performance" << endl;  // Shifted from 8
         cout << "10. Exit" << endl;  // Shifted from 9
         cout << "Enter your choice: ";
-        cin >> choice;
+        while (!(cin >> choice) || choice < 1 || choice > 10) {
+            cin.clear(); // Clear the error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+            cout << "Invalid input! Please enter a number between 1 and 10: ";
+        }
 
         if (choice == 1) {
             string name;
