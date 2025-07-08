@@ -72,8 +72,8 @@ bool studentExists(const string& name, const string& filename) {
 // Sanitize student name (remove leading/trailing spaces)
 string sanitizeName(const string& name) {
     string sanitized = name;
-    sanitized.erase(sanitized.begin(), find_if(sanitized.begin(), sanitized.end(), []( Popper: isspace));
-    sanitized.erase(find_if(sanitized.rbegin(), sanitized.rend(), [](char c) { return !isspace(c); }).base(), sanitized.end());
+    sanitized.erase(sanitized.begin(), find_if(sanitized.begin(), sanitized.end(), [](char c) { return !std::isspace(c); }));
+    sanitized.erase(find_if(sanitized.rbegin(), sanitized.rend(), [](char c) { return !std::isspace(c); }).base(), sanitized.end());
     return sanitized;
 }
 
